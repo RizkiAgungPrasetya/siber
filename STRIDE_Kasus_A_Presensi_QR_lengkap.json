@@ -1,0 +1,1544 @@
+{
+  "version": "2.6.2",
+  "release_version": "0.1",
+  "released_at": "2026-11-23",
+  "summary": {
+    "title": "STRIDE - Kasus A - Kelompok [isi nomor kelompok]",
+    "owner": "Kelompok [isi nomor kelompok]",
+    "description": "Threat modeling Sistem Presensi Perkuliahan Berbasis QR Code (Kasus A) menggunakan STRIDE. Lingkup: pembukaan/penutupan sesi, pemindaian QR, validasi kehadiran, dan pembacaan rekap. Di luar lingkup: pendaftaran mata kuliah dan perubahan nilai. Asumsi: (A1) autentikasi hanya login akun kampus tanpa pengikatan ke perangkat dan tanpa MFA; (A2) QR statis selama sesi lima menit dan tidak ada pemeriksaan lokasi; (A3) token QR belum ditandatangani; (A4) jaringan internal dianggap tepercaya sehingga koneksi SQL tidak dienkripsi; (A5) rate limiting dan audit log belum dijelaskan sehingga tidak dianggap pasti ada.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Iki"
+      },
+      {
+        "name": "[Nama anggota 2]"
+      },
+      {
+        "name": "[Nama anggota 3]"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "DFD Presensi Perkuliahan Berbasis QR Code",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.6.2",
+        "cells": [
+          {
+            "position": {
+              "x": 330,
+              "y": 20
+            },
+            "size": {
+              "width": 640,
+              "height": 520
+            },
+            "attrs": {
+              "label": {
+                "text": "Trust Boundary: Sistem Internal Kampus"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "zIndex": -1,
+            "id": "ce00353a-c289-4b7b-bdb0-3a0f32bad31a",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Trust Boundary: Sistem Internal Kampus",
+              "description": "Batas antara perangkat pengguna (publik/tidak tepercaya) dan layanan yang dikendalikan kampus. Aliran F1-F4, F8, dan F9 melintasi batas ini.",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "crossingFlows": [
+                "e5e77d76-3c42-4f0a-b2c2-aeddffc9d9d0",
+                "b402a657-3fef-4fb2-9160-71dd708bd695",
+                "33a90473-04ab-47dd-a0c4-348f0cce3a9b",
+                "4b9e1deb-c5dd-4e08-892a-106608463318",
+                "49beb0c2-0437-4d79-bcd7-14e8ccd1f78f",
+                "aeb649f7-eb76-48c3-970c-f0745fc2b7f9"
+              ],
+              "containedElements": [
+                "0083963e-ad81-45e8-8f42-d00a2074775a",
+                "2d5d542a-4dcb-45ea-b834-ddd6ce434b97",
+                "30677cf7-73e3-4e75-b198-29fd1cbdd00b"
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 40,
+              "y": 40
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Mahasiswa"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "00740809-77d6-4238-9f3d-a2a2a8565c22"
+                },
+                {
+                  "group": "right",
+                  "id": "f568a306-b3c0-4e9b-b417-60579e35c9c5"
+                },
+                {
+                  "group": "bottom",
+                  "id": "2368a2fc-474a-40a5-ac7e-ac5adc2576ac"
+                },
+                {
+                  "group": "left",
+                  "id": "5d510b2d-80e4-46a1-ada2-3922105f9b63"
+                }
+              ]
+            },
+            "id": "bcc8691a-6b48-42c3-8f87-80bf99881e94",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Mahasiswa",
+              "description": "Pengguna yang login dan memindai QR dari browser/aplikasi web. Berada di luar trust boundary.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 40,
+              "y": 240
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Dosen"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 2,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "6dd73193-a677-4983-ba5d-a516eb4f0b93"
+                },
+                {
+                  "group": "right",
+                  "id": "37e15c92-423f-4525-ad0a-51fffc149410"
+                },
+                {
+                  "group": "bottom",
+                  "id": "608a5f12-29f7-4b3a-9f0c-320cef73e031"
+                },
+                {
+                  "group": "left",
+                  "id": "7d70d22c-9caa-4ff7-8591-ac12ad5b32c4"
+                }
+              ]
+            },
+            "id": "b86cd3a9-7032-4083-848c-a71b1838efb2",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Dosen",
+              "description": "Dosen pengampu yang membuka/menutup sesi dan memantau daftar hadir kelasnya. Berada di luar trust boundary.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "633f6e26-62ff-4eca-9571-f9964a1ca8c1",
+                  "title": "Pengambilalihan akun dosen untuk membuka atau menutup sesi presensi palsu",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "Jika penyerang memperoleh kredensial atau sesi login dosen pengampu lalu mengirim permintaan buka/tutup sesi melalui F3, maka sesi palsu dapat dibuka (QR dibagikan ke pihak lain) atau sesi sah ditutup sebelum waktunya. Dampak: kehadiran tidak valid atau mahasiswa gagal presensi. Asumsi: akun dosen hanya dilindungi login akun kampus tanpa MFA.",
+                  "mitigation": "MFA untuk akun dosen, notifikasi setiap pembukaan atau penutupan sesi, batas waktu sesi login, serta pencatatan audit pembuka sesi.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": "4 (L=2, I=2)"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 40,
+              "y": 440
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Admin Akademik"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 3,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "afbcba9a-f98c-4adc-a5f8-8757eb15e5de"
+                },
+                {
+                  "group": "right",
+                  "id": "f9eee5f2-65df-4d37-a73d-f2bb66405e5d"
+                },
+                {
+                  "group": "bottom",
+                  "id": "2340992d-bfe2-4ee9-b886-ce1f937fd9c0"
+                },
+                {
+                  "group": "left",
+                  "id": "64774841-010e-482f-980c-308faa4a0a91"
+                }
+              ]
+            },
+            "id": "49459802-e8c6-4332-9dd8-a6a6d662a8bf",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Admin Akademik",
+              "description": "Admin yang melihat rekap seluruh kelas melalui antarmuka web. Berada di luar trust boundary.",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 450,
+              "y": 230
+            },
+            "size": {
+              "width": 130,
+              "height": 90
+            },
+            "attrs": {
+              "text": {
+                "text": "Backend Presensi"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 4,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "d9ac025f-29c3-49af-a54b-12db77e75c89"
+                },
+                {
+                  "group": "right",
+                  "id": "83e6d0c1-21c1-4bca-ba0d-412f1d1e290a"
+                },
+                {
+                  "group": "bottom",
+                  "id": "42135699-8b2a-4d91-9018-4d421e699425"
+                },
+                {
+                  "group": "left",
+                  "id": "56d9a568-998f-4a1c-825f-d4fd80118fd5"
+                }
+              ]
+            },
+            "id": "0083963e-ad81-45e8-8f42-d00a2074775a",
+            "data": {
+              "type": "tm.Process",
+              "name": "Backend Presensi",
+              "description": "Membuat sesi dan QR, memvalidasi pemindaian, memeriksa aturan bisnis, mencatat kehadiran, dan menyajikan rekap.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "2e70783c-6dd6-4064-8823-b643dd210757",
+                  "title": "Titip absen menggunakan akun atau token autentikasi teman",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Jika mahasiswa dapat memperoleh kredensial atau token sesi milik temannya (diberikan sukarela atau dicuri) lalu memindai QR dari perangkat lain atas nama teman tersebut, maka Backend Presensi mencatat kehadiran untuk orang yang tidak hadir. Dampak: catatan kehadiran tidak valid dan keadilan akademik terganggu. Asumsi: autentikasi hanya berupa login akun kampus tanpa pengikatan ke perangkat.",
+                  "mitigation": "Ikat sesi login ke perangkat, batasi satu sesi aktif per akun, deteksi satu perangkat/IP yang memindai untuk banyak akun, dan wajibkan autentikasi ulang atau MFA pada login kampus.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": "6 (L=3, I=2)"
+                },
+                {
+                  "id": "6a8aa069-3701-4d0f-9f7d-351bea6eb45b",
+                  "title": "Aktivitas sesi dan presensi tidak dapat ditelusuri",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Jika pembukaan/penutupan sesi, pemindaian, dan pembacaan rekap tidak dicatat secara memadai, maka mahasiswa dapat menyangkal sudah atau belum presensi dan dosen dapat menyangkal telah menutup sesi, sehingga sengketa kehadiran sulit diselesaikan. Dampak: sengketa tanpa bukti. Asumsi: mekanisme audit belum dijelaskan sehingga tidak dianggap pasti memadai.",
+                  "mitigation": "Audit log (waktu, ID pengguna, ID sesi, hasil validasi, IP) untuk setiap aksi penting, log bersifat append-only dan dilindungi dari perubahan, serta retensi sesuai kebijakan kampus.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "4 (L=2, I=2)"
+                },
+                {
+                  "id": "0fd73a54-1089-4475-96cc-1fd6b4fb86d7",
+                  "title": "Banjir permintaan pemindaian membuat Backend Presensi lambat atau tidak tersedia",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "Jika banyak permintaan (mahasiswa memindai serentak di awal kelas atau penyerang mengirim permintaan berulang) membanjiri Backend Presensi, maka validasi menjadi lambat dan sesi lima menit dapat habis sebelum mahasiswa tercatat hadir. Dampak: presensi gagal bagi sebagian atau seluruh kelas. Asumsi: belum ada pembatasan permintaan.",
+                  "mitigation": "Rate limiting per akun dan per IP, antrean atau penyangga permintaan, kapasitas cadangan pada jam kuliah, pemantauan beban, serta toleransi waktu sesi saat terjadi gangguan.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "4 (L=2, I=2)"
+                },
+                {
+                  "id": "9bc1e344-47cf-49a9-ad26-7fe2ae2deff0",
+                  "title": "Mahasiswa mengakses fungsi buka sesi atau rekap seluruh kelas",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Jika Backend Presensi tidak memeriksa peran pengguna dengan benar, maka mahasiswa biasa dapat memanggil endpoint yang hanya untuk dosen pengampu (membuka sesi) atau admin akademik (rekap seluruh kelas). Dampak: pembukaan sesi palsu dan akses data seluruh kelas. Asumsi: pemisahan endpoint per peran belum dijelaskan.",
+                  "mitigation": "Otorisasi berbasis peran (RBAC) pada setiap endpoint, prinsip least privilege, validasi bahwa pembuka sesi adalah dosen pengampu kelas tersebut, dan pengujian akses lintas peran.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "6 (L=2, I=3)"
+                },
+                {
+                  "id": "aca0e282-dede-48eb-aa08-8329b4cf9a49",
+                  "title": "Permintaan pemindaian paralel menghasilkan catatan hadir ganda dalam satu sesi",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Jika satu mahasiswa (atau skrip) mengirim beberapa permintaan pemindaian hampir bersamaan untuk sesi yang sama dan Backend Presensi memeriksa duplikasi tanpa transaksi atomik, maka lebih dari satu catatan hadir tersimpan untuk mahasiswa dan sesi yang sama. Dampak: aturan bisnis \"paling banyak satu catatan hadir per sesi\" dilanggar dan rekap tidak akurat. Asumsi: belum ada constraint unik pada tabel kehadiran.",
+                  "mitigation": "Constraint unik (ID mahasiswa, ID sesi) pada tabel kehadiran, transaksi atomik atau idempotency key pada proses pencatatan, serta penolakan permintaan duplikat dengan respons yang jelas.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": "4 (L=2, I=2)"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "tampering": 1,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 450,
+              "y": 420
+            },
+            "size": {
+              "width": 130,
+              "height": 90
+            },
+            "attrs": {
+              "text": {
+                "text": "Layanan Autentikasi Kampus"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 5,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "b72ef728-d47a-4d84-96c4-d9d054c21b1c"
+                },
+                {
+                  "group": "right",
+                  "id": "83bb9fd0-e377-491b-8892-214242ae0aa8"
+                },
+                {
+                  "group": "bottom",
+                  "id": "52a56c8e-b447-4942-991c-e8b47578ac74"
+                },
+                {
+                  "group": "left",
+                  "id": "f4778dfd-2393-4df7-8295-7e7044de4262"
+                }
+              ]
+            },
+            "id": "2d5d542a-4dcb-45ea-b834-ddd6ce434b97",
+            "data": {
+              "type": "tm.Process",
+              "name": "Layanan Autentikasi Kampus",
+              "description": "Memverifikasi identitas akun kampus untuk Backend Presensi.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "e0775314-fb5a-4d84-b5ef-06cd4faa618a",
+                  "title": "Layanan Autentikasi Kampus tidak tersedia sehingga presensi seluruh kelas terhenti",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "Jika Layanan Autentikasi Kampus mati atau dibanjiri permintaan login, maka Backend Presensi tidak dapat memverifikasi identitas dan mahasiswa tidak dapat presensi. Dampak: presensi terhenti selama gangguan. Asumsi: layanan autentikasi dipakai bersama dan tidak sepenuhnya dikendalikan tim presensi.",
+                  "mitigation": "Timeout dan circuit breaker pada pemanggilan autentikasi, cache verifikasi token berumur singkat, rate limiting, dan prosedur cadangan presensi manual oleh dosen.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": "4 (L=2, I=2)"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 0
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 780,
+              "y": 245
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Database Akademik"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 6,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "e26469c5-5ac5-432f-8127-955a3700acfd"
+                },
+                {
+                  "group": "right",
+                  "id": "6c32cffb-5f5b-4fbc-9dd0-8c87861f9bf1"
+                },
+                {
+                  "group": "bottom",
+                  "id": "84e1664d-81bd-46f6-9f23-b656f2789788"
+                },
+                {
+                  "group": "left",
+                  "id": "76626461-76a2-48dd-bc56-d45fdc156a2e"
+                }
+              ]
+            },
+            "id": "30677cf7-73e3-4e75-b198-29fd1cbdd00b",
+            "data": {
+              "type": "tm.Store",
+              "name": "Database Akademik",
+              "description": "Menyimpan identitas pengguna, keanggotaan kelas, jadwal, sesi, token QR, dan catatan kehadiran.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": true,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "b7dd5d94-db2e-47ad-8c12-6ab38c4e363c",
+                  "title": "Catatan kehadiran diubah langsung pada database tanpa jejak",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Jika pihak dengan akses database (akun administrator DB, kredensial aplikasi yang bocor, atau SQL injection pada backend) dapat mengubah atau menghapus catatan kehadiran, maka rekap menjadi tidak benar dan perubahan sulit dideteksi. Dampak: integritas data kehadiran rusak. Asumsi: hak akses database belum dijelaskan.",
+                  "mitigation": "Akun database aplikasi dengan hak minimum, query berparameter, pemisahan akun administrator, audit perubahan pada tabel kehadiran, dan backup yang diverifikasi.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": "3 (L=1, I=3)"
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F1: ID sesi dan token autentikasi (hasil scan)",
+              "description": "Mahasiswa ke Backend Presensi. Data: ID sesi dan token autentikasi (hasil scan).",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "id": "dec82c38-1678-4b36-91fd-9c8ea950d149",
+                  "title": "Manipulasi ID sesi atau pemakaian ulang token QR yang kedaluwarsa",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Jika mahasiswa dapat mengubah ID sesi pada permintaan atau memakai ulang token QR lama, maka presensi dapat tercatat pada sesi yang salah atau setelah masa berlaku lima menit berakhir. Dampak: presensi di luar jendela waktu yang sah dan rekap tidak akurat. Asumsi: token QR belum ditandatangani sehingga isinya dapat ditiru oleh klien.",
+                  "mitigation": "Tandatangani token sesi dan verifikasi di server, validasi masa berlaku lima menit di sisi server (bukan klien), tolak token yang sudah dipakai, dan pastikan mahasiswa terdaftar pada kelas sesi tersebut.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "4 (L=2, I=2)"
+                }
+              ],
+              "trustBoundaryIds": [
+                "ce00353a-c289-4b7b-bdb0-3a0f32bad31a"
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F1: ID sesi dan token autentikasi (hasil scan)"
+            ],
+            "id": "e5e77d76-3c42-4f0a-b2c2-aeddffc9d9d0",
+            "source": {
+              "cell": "bcc8691a-6b48-42c3-8f87-80bf99881e94",
+              "port": "f568a306-b3c0-4e9b-b417-60579e35c9c5"
+            },
+            "target": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "56d9a568-998f-4a1c-825f-d4fd80118fd5"
+            },
+            "vertices": [
+              {
+                "x": 300,
+                "y": 70
+              },
+              {
+                "x": 400,
+                "y": 240
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F2: Hasil validasi presensi",
+              "description": "Backend Presensi ke Mahasiswa. Data: Hasil validasi presensi.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "ce00353a-c289-4b7b-bdb0-3a0f32bad31a"
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F2: Hasil validasi presensi"
+            ],
+            "id": "b402a657-3fef-4fb2-9160-71dd708bd695",
+            "source": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "56d9a568-998f-4a1c-825f-d4fd80118fd5"
+            },
+            "target": {
+              "cell": "bcc8691a-6b48-42c3-8f87-80bf99881e94",
+              "port": "2368a2fc-474a-40a5-ac7e-ac5adc2576ac"
+            },
+            "vertices": [
+              {
+                "x": 300,
+                "y": 275
+              },
+              {
+                "x": 96,
+                "y": 160
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F3: Permintaan buka/tutup sesi dan lihat daftar hadir",
+              "description": "Dosen ke Backend Presensi. Data: Permintaan buka/tutup sesi dan lihat daftar hadir.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "ce00353a-c289-4b7b-bdb0-3a0f32bad31a"
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F3: Permintaan buka/tutup sesi dan lihat daftar hadir"
+            ],
+            "id": "33a90473-04ab-47dd-a0c4-348f0cce3a9b",
+            "source": {
+              "cell": "b86cd3a9-7032-4083-848c-a71b1838efb2",
+              "port": "37e15c92-423f-4525-ad0a-51fffc149410"
+            },
+            "target": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "56d9a568-998f-4a1c-825f-d4fd80118fd5"
+            },
+            "vertices": [
+              {
+                "x": 300,
+                "y": 290
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F4: QR/token sesi dan daftar hadir kelas",
+              "description": "Backend Presensi ke Dosen. Data: QR/token sesi dan daftar hadir kelas.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "id": "0b3e2af9-0e4f-4adf-ad07-7f7c963b197a",
+                  "title": "Daftar hadir atau rekap kelas lain terkirim ke dosen yang tidak berhak",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Jika pemeriksaan kepemilikan kelas pada Backend Presensi keliru atau tidak ada, maka dosen (atau pengguna lain) dapat menerima daftar hadir kelas yang bukan kelasnya melalui respons ke browser. Dampak: kebocoran data kehadiran dan identitas mahasiswa. Asumsi: permintaan daftar hadir memuat ID kelas yang dapat diubah pengguna.",
+                  "mitigation": "Periksa dosen pengampu atau peran sebelum mengirim respons pada setiap request, kembalikan hanya kolom yang diperlukan, dan uji akses lintas kelas dan lintas pengguna.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "6 (L=2, I=3)"
+                },
+                {
+                  "id": "7116df52-89f9-4c4b-8575-9f9a5e4b483d",
+                  "title": "QR sesi bocor keluar ruang kelas melalui foto yang dibagikan",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Jika QR yang ditampilkan di layar kelas dapat difoto lalu dikirim ke mahasiswa yang tidak berada di ruangan, maka mahasiswa tersebut dapat memindai dan tercatat hadir dari lokasi lain. Dampak: kehadiran fiktif. Asumsi: QR bersifat statis selama sesi lima menit dan tidak ada pemeriksaan lokasi.",
+                  "mitigation": "QR dinamis yang berganti setiap beberapa detik, validasi jaringan Wi-Fi atau lokasi kampus, dan pembatasan jendela waktu pemindaian.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": "6 (L=3, I=2)"
+                }
+              ],
+              "trustBoundaryIds": [
+                "ce00353a-c289-4b7b-bdb0-3a0f32bad31a"
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 2,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F4: QR/token sesi dan daftar hadir kelas"
+            ],
+            "id": "4b9e1deb-c5dd-4e08-892a-106608463318",
+            "source": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "56d9a568-998f-4a1c-825f-d4fd80118fd5"
+            },
+            "target": {
+              "cell": "b86cd3a9-7032-4083-848c-a71b1838efb2",
+              "port": "608a5f12-29f7-4b3a-9f0c-320cef73e031"
+            },
+            "vertices": [
+              {
+                "x": 380,
+                "y": 340
+              },
+              {
+                "x": 96,
+                "y": 340
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": "block"
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F5: Verifikasi identitas (token dan hasil verifikasi)",
+              "description": "Backend Presensi dan Layanan Autentikasi Kampus (dua arah). Data: Verifikasi identitas (token dan hasil verifikasi).",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": true,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "id": "8b02a293-5eb5-43ef-807a-c8e5743e92dc",
+                  "title": "Hasil verifikasi identitas dimodifikasi atau dipalsukan saat transit",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Jika pihak di jaringan internal dapat menyisipkan atau mengubah respons Layanan Autentikasi Kampus, maka Backend Presensi dapat menerima identitas palsu dan mencatat presensi untuk akun yang salah. Dampak: bypass autentikasi. Asumsi: komunikasi internal antar-komponen belum dijelaskan perlindungannya.",
+                  "mitigation": "Verifikasi token dengan tanda tangan penyedia identitas, mutual TLS antar-layanan, dan validasi klaim (penerbit, audiens, masa berlaku).",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": "3 (L=1, I=3)"
+                }
+              ],
+              "trustBoundaryIds": [],
+              "threatFrequency": {
+                "tampering": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F5: Verifikasi identitas (token dan hasil verifikasi)"
+            ],
+            "id": "078fb6ce-e61c-44bc-a64f-47f083d095fc",
+            "source": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "42135699-8b2a-4d91-9018-4d421e699425"
+            },
+            "target": {
+              "cell": "2d5d542a-4dcb-45ea-b834-ddd6ce434b97",
+              "port": "b72ef728-d47a-4d84-96c4-d9d054c21b1c"
+            },
+            "vertices": []
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F6: Simpan sesi dan catatan kehadiran",
+              "description": "Backend Presensi ke Database Akademik. Data: Simpan sesi dan catatan kehadiran.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": [],
+              "trustBoundaryIds": [],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F6: Simpan sesi dan catatan kehadiran"
+            ],
+            "id": "1c609c8f-fa1b-456b-be57-38a975e3a5df",
+            "source": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "83e6d0c1-21c1-4bca-ba0d-412f1d1e290a"
+            },
+            "target": {
+              "cell": "30677cf7-73e3-4e75-b198-29fd1cbdd00b",
+              "port": "76626461-76a2-48dd-bc56-d45fdc156a2e"
+            },
+            "vertices": [
+              {
+                "x": 690,
+                "y": 260
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F7: Data kelas, keanggotaan, dan rekap",
+              "description": "Database Akademik ke Backend Presensi. Data: Data kelas, keanggotaan, dan rekap.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": [
+                {
+                  "id": "60e6362d-f228-4e8d-a1f4-8360b03b546e",
+                  "title": "Data keanggotaan kelas dan rekap dapat disadap pada jalur SQL internal",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Jika pihak dengan akses ke jaringan internal kampus dapat menyadap lalu lintas antara Backend Presensi dan Database Akademik, maka data keanggotaan kelas, identitas mahasiswa, dan rekap kehadiran dapat terbaca. Dampak: kebocoran data pribadi mahasiswa. Asumsi: koneksi SQL tidak dienkripsi (jaringan internal dianggap tepercaya).",
+                  "mitigation": "Aktifkan TLS pada koneksi database, segmentasi jaringan sehingga hanya Backend Presensi yang dapat menjangkau database, dan batasi host yang diizinkan pada firewall database.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 13,
+                  "score": "3 (L=1, I=3)"
+                }
+              ],
+              "trustBoundaryIds": [],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F7: Data kelas, keanggotaan, dan rekap"
+            ],
+            "id": "649f652e-6eac-4490-9c53-ceb2ea513dab",
+            "source": {
+              "cell": "30677cf7-73e3-4e75-b198-29fd1cbdd00b",
+              "port": "76626461-76a2-48dd-bc56-d45fdc156a2e"
+            },
+            "target": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "83e6d0c1-21c1-4bca-ba0d-412f1d1e290a"
+            },
+            "vertices": [
+              {
+                "x": 690,
+                "y": 295
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F8: Permintaan rekap seluruh kelas",
+              "description": "Admin Akademik ke Backend Presensi. Data: Permintaan rekap seluruh kelas.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "ce00353a-c289-4b7b-bdb0-3a0f32bad31a"
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F8: Permintaan rekap seluruh kelas"
+            ],
+            "id": "49beb0c2-0437-4d79-bcd7-14e8ccd1f78f",
+            "source": {
+              "cell": "49459802-e8c6-4332-9dd8-a6a6d662a8bf",
+              "port": "f9eee5f2-65df-4d37-a73d-f2bb66405e5d"
+            },
+            "target": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "56d9a568-998f-4a1c-825f-d4fd80118fd5"
+            },
+            "vertices": [
+              {
+                "x": 300,
+                "y": 470
+              },
+              {
+                "x": 410,
+                "y": 330
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "F9: Rekap kehadiran seluruh kelas",
+              "description": "Backend Presensi ke Admin Akademik. Data: Rekap kehadiran seluruh kelas.",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "ce00353a-c289-4b7b-bdb0-3a0f32bad31a"
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
+            },
+            "labels": [
+              "F9: Rekap kehadiran seluruh kelas"
+            ],
+            "id": "aeb649f7-eb76-48c3-970c-f0745fc2b7f9",
+            "source": {
+              "cell": "0083963e-ad81-45e8-8f42-d00a2074775a",
+              "port": "42135699-8b2a-4d91-9018-4d421e699425"
+            },
+            "target": {
+              "cell": "49459802-e8c6-4332-9dd8-a6a6d662a8bf",
+              "port": "2340992d-bfe2-4ee9-b886-ce1f937fd9c0"
+            },
+            "vertices": [
+              {
+                "x": 515,
+                "y": 560
+              },
+              {
+                "x": 96,
+                "y": 560
+              }
+            ]
+          }
+        ],
+        "description": "Aliran pembukaan sesi, pemindaian QR, validasi kehadiran, dan rekap presensi."
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "Dosen Praktikum",
+    "threatTop": 13
+  }
+}
